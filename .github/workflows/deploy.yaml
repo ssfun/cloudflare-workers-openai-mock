@@ -12,10 +12,9 @@ jobs:
       - uses: actions/checkout@v2
       - name: Modify wrangler before deployment
         run: |
-          sed -i.bak "s/logpush = true/#logpush = true\n[vars]\ntoken = \"${{ secrets.ACCESS_TOKEN }}\"/g" wrangler.toml && rm wrangler.toml.bak
-      #- name: Set wrangler
-      #  run: |
-      #    sed -i "s/logpush/#logpush/g" wrangler.toml
+          sed -i.bak "s/logpush = true/#logpush = true\n[vars]\ntoken = \"${ACCESS_TOKEN}\"/g" wrangler.toml && rm wrangler.toml.bak
+        env:
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
       - name: Build & Deploy Worker
         uses: cloudflare/wrangler-action@v3
         with:
