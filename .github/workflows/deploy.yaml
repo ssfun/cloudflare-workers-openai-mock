@@ -10,9 +10,12 @@ jobs:
     timeout-minutes: 60
     steps:
       - uses: actions/checkout@v2
-      - name: Set wrangler
+      - name: Modify wrangler before deployment
         run: |
-          sed -i "s/logpush/#logpush/g" wrangler.toml
+          sed -i.bak "s/logpush = true/#logpush = true\n[vars]\ntoken = \"${{ secrets.ACCESS_TOKEN }}\"/g" wrangler.toml && rm wrangler.toml.bak
+      #- name: Set wrangler
+      #  run: |
+      #    sed -i "s/logpush/#logpush/g" wrangler.toml
       - name: Build & Deploy Worker
         uses: cloudflare/wrangler-action@v3
         with:
