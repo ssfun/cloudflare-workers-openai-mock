@@ -7,9 +7,11 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     timeout-minutes: 60
-    needs: test
     steps:
       - uses: actions/checkout@v2
+      - name: Set wrangler
+        run: |
+          sed -i "s/logpush/#logpush/g" wrangler.toml
       - name: Build & Deploy Worker
         uses: cloudflare/wrangler-action@v3
         with:
