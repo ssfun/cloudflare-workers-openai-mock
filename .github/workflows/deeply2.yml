@@ -1,4 +1,4 @@
-name: Deploy Worker
+name: Deploy Worker 2
 on:
   workflow_dispatch:
 jobs:
